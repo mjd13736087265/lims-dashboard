@@ -200,5 +200,22 @@ npm run build
 
 ## 七、现有部署页面
 
-当前部署地址：https://oozjqvmbom66u.ok.kimi.link
-（此页面不受影响，继续可用）
+**当前部署地址（GitHub Pages）：https://mjd13736087265.github.io/lims-dashboard/**
+
+- 源码仓库：https://github.com/mjd13736087265/lims-dashboard （`main` 分支为源码，`gh-pages` 分支为构建产物）
+- 旧地址 https://oozjqvmbom66u.ok.kimi.link 为 Kimi Chat 部署的历史版本，已冻结，不再更新
+
+### 更新部署流程（改完代码后）
+
+```bash
+npm install        # 首次或依赖变化时（国内建议加 --registry=https://registry.npmmirror.com）
+npm run build      # 产物输出到 dist/
+```
+
+然后将 `dist/` 内容推送到 `gh-pages` 分支即可，GitHub Pages 约 1 分钟内自动更新：
+
+```bash
+git worktree add ../gh-pages-tmp gh-pages
+cd ../gh-pages-tmp && git rm -rf . && cp -r ../lims-dashboard-source/dist/* . && touch .nojekyll
+git add -A && git commit -m "deploy: 更新构建产物" && git push origin gh-pages
+```
